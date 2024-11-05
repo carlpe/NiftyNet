@@ -104,7 +104,7 @@ def load_image_obj(filename, loader=None):
 
         try:
             img = loader_params['func'](filename)
-            tf.logging.debug('Using Image Loader {}.'.format(name))
+            tf.compat.v1.logging.debug('Using Image Loader {}.'.format(name))
             return img
         except IOError:
             # e.g. Nibabel cannot load standard 2D images

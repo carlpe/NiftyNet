@@ -23,11 +23,11 @@ class Invertible(with_metaclass(ABCMeta, object)):
 class Layer(object):
     def __init__(self, name='untitled_op'):
         self.name = name
-        self._op = tf.make_template(name, self.layer_op, create_scope_now_=True)
+        self._op = tf.compat.v1.make_template(name, self.layer_op, create_scope_now_=True)
 
     def layer_op(self, *args, **kwargs):
         msg = 'method \'layer_op\' in \'{}\''.format(type(self).__name__)
-        tf.logging.fatal(msg)
+        tf.compat.v1.logging.fatal(msg)
         raise NotImplementedError
 
     def __call__(self, *args, **kwargs):

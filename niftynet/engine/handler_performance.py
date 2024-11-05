@@ -36,6 +36,6 @@ class PerformanceLogger(object):
                 else:
                     _sender.performance_history = \
                         _sender.performance_history[1:] + [current_loss]
-            except (AttributeError, KeyError):
+            except AttributeError:
                 tf.logging.warning("does not contain any performance field "
                                    "called total loss.")

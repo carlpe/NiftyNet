@@ -75,7 +75,7 @@ NIFTYNET_HOME = NiftyNetGlobalConfig().get_niftynet_home_folder()
 
 
 # pylint: disable=too-many-branches
-def run():
+def run(raw_args=None):
     """
     meta_parser is first used to find out location
     of the configuration file. Based on the application_name
@@ -93,24 +93,28 @@ def run():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=textwrap.dedent(EPILOG_STRING))
     version_string = get_niftynet_version_string()
-    meta_parser.add_argument("action",
+    meta_parser.add_argument("-t",
                              help="train networks, run inferences "
                                   "or evaluate inferences",
                              metavar='ACTION',
+                             default="inference",
                              choices=list(ACTIONS))
     meta_parser.add_argument("-v", "--version",
                              action='version',
                              version=version_string)
     meta_parser.add_argument("-c", "--conf",
                              help="specify configurations from a file",
-                             metavar="CONFIG_FILE")
+                             metavar="CONFIG_FILE",
+                             default=raw_args)
     meta_parser.add_argument("-a", "--application_name",
                              help="specify an application module name",
                              metavar='APPLICATION_NAME',
-                             default="")
+                             default="net_segment")
+    #meta_parser.parse_args(vars(raw_args))
 
     meta_args, args_from_cmdline = meta_parser.parse_known_args()
     print(version_string)
+    print(args_from_cmdline)
 
     # read configurations, to be parsed by sections
     config_file_name = __resolve_config_file_path(meta_args.conf)
@@ -204,7 +208,7 @@ def run():
     system_args['CONFIG_FILE'] = argparse.Namespace(path=config_file_name)
     # mapping the captured action argument to a string in ACTIONS
     system_args['SYSTEM'].action = \
-        look_up_operations(meta_args.action, ACTIONS)
+        look_up_operations("inference", ACTIONS)
     if not system_args['SYSTEM'].model_dir:
         system_args['SYSTEM'].model_dir = os.path.join(
             os.path.dirname(config_file_name), 'model')

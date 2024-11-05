@@ -2,6 +2,7 @@
 from __future__ import absolute_import, print_function
 
 import tensorflow as tf
+tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 from tensorflow.python.training import moving_averages
 
 from niftynet.layer.base_layer import TrainableLayer

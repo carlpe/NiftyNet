@@ -17,12 +17,15 @@ RESTORABLE = 'NiftyNetObjectsToRestore'
 NETWORK_OUTPUT = 'niftynetout'
 CONSOLE = 'niftynetconsole'
 TF_SUMMARIES = tf.GraphKeys.SUMMARIES
-SUPPORTED_SUMMARY = {'scalar': tf.summary.scalar,
-                     'histogram': tf.summary.histogram,
-                     'image': tf.summary.image,
-                     'image3_sagittal': image3_sagittal,
-                     'image3_coronal': image3_coronal,
-                     'image3_axial': image3_axial}
+SUPPORTED_SUMMARY = {
+    'scalar': tf.compat.v1.summary.scalar,
+    'histogram': tf.compat.v1.summary.histogram,
+    'image': tf.compat.v1.summary.image,
+    'image3_sagittal': image3_sagittal,
+    'image3_coronal': image3_coronal,
+    'image3_axial': image3_axial
+}
+
 
 
 class GradientsCollector(object):
